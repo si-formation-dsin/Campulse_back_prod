@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load plana_tags %}
+{% load resolve %}
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% resolve %}{{ content.title }}{% endresolve %}</title>
+        <link rel="stylesheet" href="{% s3static 'css/notifications/FPEX.css' %}" type="text/css"/>
+        <style>
+            @page {
+                margin: 20mm 10mm 20mm 10mm;
+                size: A4 portrait;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="head-float-left">
+                <img src="{% s3static 'img/svu_logo.png' %}" alt="svu_logo">
+            </div>
+            <div class="head-float-right border text-sm font-d">
+                {% resolve %}{{ content.header|safe }}{% endresolve %}
+            </div>
+        </header>
+        <main>
+            <div class="float-left border text-sm font-a">
+                {% resolve %}{{ content.aside|safe }}{% endresolve %}
+            </div>
+            <div class="float-right font-a">
+                {% resolve %}{{ content.body|safe }}{% endresolve %}
+            </div>
+        </main>
+        <footer>
+            <div class="float-right font-a align-right">
+                {% resolve %}{{ content.footer|safe }}{% endresolve %}
+            </div>
+        </footer>
+    </body>
+</html>

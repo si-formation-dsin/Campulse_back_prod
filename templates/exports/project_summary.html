@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load plana_tags %}
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ name }}</title>
+        <link rel="stylesheet" href="{% s3static 'css/exports/project_export.css' %}" type="text/css"/>
+    </head>
+    <body>
+        <header>
+            <div class="flex flex-space-between">
+                <img src="{% s3static 'img/unistra_logo.png' %}" alt="Université de Strasbourg" class="margin-bottom">
+                <img src="{% s3static 'img/cvec_logo.png' %}" alt="Contribution Vie Étudiante et de Campus" class="margin-bottom">
+                <img src="{% s3static 'img/crous_logo.png' %}" alt="Crous Strasbourg" class="margin-bottom">
+            </div>
+            <div class="flex">
+                <div class="flex flex-direction-column outline">
+                    <strong>{% trans 'SPAC date' %} :</strong>
+                    <span>{{ commission_date | date:'l d F Y' }}</span>
+                    <strong>{% trans 'Case number' %} :</strong>
+                    <span>{{ manual_identifier }}</span>
+                </div>
+                <div class="flex flex-direction-column outline">
+                    <strong>{% trans 'Filing date' %} :</strong>
+                    <span>{{ processing_date | date:'l d F Y' }}</span>
+                </div>
+                <div class="flex flex-direction-column outline">
+                    <strong>{% trans 'Amount asked' %} :</strong>
+                    {% for commission in project_commission_funds %}
+                        <span>{{ commission.fund_data.acronym }} : {{ commission.amount_asked }} €</span>
+                    {% endfor %}
+                </div>
+                <div class="flex flex-direction-column outline">
+                    <strong>{% trans 'Amount granted' %} :</strong>
+                    {% for commission in project_commission_funds %}
+                        <span>{{ commission.fund_data.acronym }} : {% if commission.amount_earned is not None %}{{ commission.amount_earned }} €{% endif %}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <h1 class="text-center text-uppercase">{% trans 'Student project assistance commitee' %}<br>{% trans 'Summary of grant applications' %}</h1>
+            <div class="flex flex-space-around">
+                <div class="outline-light text-center">
+                    <strong>{% trans 'Associative project' %} {% if association %}☑{% else %}☐{% endif %}</strong>
+                </div>
+                <div class="outline-light text-center">
+                    <strong>{% trans 'Individual holder project' %} {% if user and not association %}☑{% else %}☐{% endif %}</strong>
+                </div>
+            </div>
+        </header>
+
+        <div>
+            <div class="outline">
+                <div>
+                    <strong>{% if association %}{% trans 'Association name' %}{% else %}{% trans 'Individual holder name' %}{% endif %} :</strong>
+                    <span>{% if association %}{{ association.name }}{% else %}{{ user.first_name }} {{ user.last_name }}{% endif %}</span>
+                </div>
+                {% if partner_association %}
+                    <div>
+                        <strong>{% trans 'Co-holder association name' %} :</strong>
+                        <span>{{ partner_association }}</span>
+                    </div>
+                {% endif %}
+                <div>
+                    <strong>{% trans 'Project title' %} :</strong>
+                    <span>{{ name }}</span>
+                </div>
+                <div>
+                    <strong>{% trans 'Project dates' %} :</strong>
+                    <span>{{ planned_start_date | date:'l d F Y' }} - {{ planned_end_date | date:'l d F Y' }}</span>
+                </div>
+                <div>
+                    <strong>{% trans 'Project locations' %} :</strong>
+                    <span>{{ planned_location }}</span>
+                </div>
+            </div>
+            <div class="outline">
+                <div>
+                    <strong>{% if association %}{% trans 'Association postal address' %}{% else %}{% trans 'Individual holder postal address' %}{% endif %} :</strong>
+                    <span>{% if association %}{{ association.address }} {{ association.zipcode }} {{ association.city }} {{ association.country }}{% else %}{{ user.address }} {{ user.zipcode }} {{ user.city }} {{ user.country }}{% endif %}</span>
+                </div>
+            </div>
+            <div class="outline">
+                <div>
+                    <strong>{% if association %}{% trans 'Association phone' %}{% else %}{% trans 'Individual holder phone' %}{% endif %} :</strong>
+                    <span>{% if association %}{{ association.phone }}{% else %}{{ user.phone }}{% endif %}</span>
+                </div>
+                <div>
+                    <strong>{% if association %}{% trans 'Association email' %}{% else %}{% trans 'Individual holder email' %}{% endif %} :</strong>
+                    <span>{% if association %}{{ association.email }}{% else %}{{ user.email }}{% endif %}</span>
+                </div>
+            </div>
+            {% if association %}
+                <div class="outline">
+                    <div>
+                        <strong>{% trans 'Association president name' %} :</strong>
+                        <span>{{ association.president_names }}</span>
+                    </div>
+                    <div>
+                        <strong>{% trans 'Phone' %} :</strong>
+                        <span>{{ association.president_phone }}</span>
+                    </div>
+                    <div>
+                        <strong>{% trans 'Mail' %} :</strong>
+                        <span>{{ association.president_email }}</span>
+                    </div>
+                </div>
+                <div class="outline">
+                    <div>
+                        <strong>{% trans 'Association project holder name' %} :</strong>
+                        <span>{{ user.first_name }} {{ user.last_name }}</span>
+                    </div>
+                    <div>
+                        <strong>{% trans 'Phone' %} :</strong>
+                        <span>{{ user.phone }}</span>
+                    </div>
+                    <div>
+                        <strong>{% trans 'Mail' %} :</strong>
+                        <span>{{ user.email }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <section>
+            <div class="outline">
+                <h2>{% trans 'Project type' %}</h2>
+                <div class="flex">
+                    <div class="flex flex-direction-column outline-light">
+                        {% for category in categories %}
+                            {% if not forloop.counter|divisibleby:2 %}
+                                <span>{% if category.id in project_categories %}☑{% else %}☐{% endif %}{{ category.name }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="flex flex-direction-column outline-light">
+                        {% for category in categories %}
+                            {% if forloop.counter|divisibleby:2 %}
+                                <span>{% if category.id in project_categories %}☑{% else %}☐{% endif %}{{ category.name }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="outline">
+                <div class="flex flex-space-around">
+                    <div class="outline-light">
+                        <span>{% if is_first_edition %}☑{% else %}☐{% endif %}{% trans 'First issue' %}</span>
+                    </div>
+                    <div class="outline-light">
+                        <span>{% if not is_first_edition %}☑{% else %}☐{% endif %}{% trans 'Reissue' %}</span>
+                    </div>
+                </div>
+                {% if not is_first_edition %}
+                    <div>
+                        <div>
+                            <strong>{% trans 'Grants requested for the previous edition' %} :</strong>
+                            {% for commission in project_commission_funds %}
+                                <span>{{ commission.fund_data.acronym }} : {{ commission.amount_asked_previous_edition }} €{% if not forloop.last %}, {% endif %}</span>
+                            {% endfor %}
+                        </div>
+                        <div>
+                            <strong>{% trans 'Grants earned' %} :</strong>
+                            {% for commission in project_commission_funds %}
+                                <span>{{ commission.fund_data.acronym }} : {{ commission.amount_earned_previous_edition }} €{% if not forloop.last %}, {% endif %}</span>
+                            {% endfor %}
+                        </div>
+                        <div>
+                            <strong>{% trans 'Real project budget (expenses)' %} :</strong>
+                            <span>{{ budget_previous_edition }} €</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section>
+            <div class="outline">
+                <h2>{% trans 'Target audience for the project' %}</h2>
+                <div class="outline-light">
+                    <strong>{% trans 'Targeted audience type' %} :</strong>
+                    <span>{{ target_audience }}</span>
+                </div>
+                <div class="flex">
+                    <div class="outline-light">
+                        <strong>{% trans 'Number of people targeted' %} :</strong>
+                        <span>{{ amount_all_audience }}</span>
+                    </div>
+                    <div class="outline-light">
+                        <strong>{% trans 'Including students' %} :</strong>
+                        <span>{{ amount_students_audience }}</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="outline-light">
+                        <div>
+                            <strong>{% trans 'Participation per person' %} :</strong>
+                            <span>{{ ticket_price }} €</span>
+                        </div>
+                        <div>
+                            <strong>{% trans 'Special student rate' %} :</strong>
+                            <span>{{ student_ticket_price }} €</span>
+                        </div>
+                    </div>
+                    <div class="outline-light">
+                        <strong>{% trans 'Cost per person' %} :</strong>
+                        <span>{{ individual_cost }} €</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="break">
+            <div class="flex flex-direction-column margin-bottom outline">
+                <strong>{% trans 'Aims of the project' %} :</strong>
+                <span>{{ goals }}</span>
+            </div>
+            <div class="flex flex-direction-column margin-bottom outline">
+                <strong>{% trans 'Summary of the project' %} :</strong>
+                <span>{{ summary }}</span>
+            </div>
+            <div class="flex flex-direction-column margin-bottom outline">
+                <strong>{% trans 'Prevention and safety programme' %} :</strong>
+                <span>{{ prevention_safety }}</span>
+            </div>
+            <div class="flex flex-direction-column margin-bottom outline">
+                <strong>{% trans 'Marketing campaign' %} :</strong>
+                <span>{{ marketing_campaign }}</span>
+            </div>
+            <div class="flex flex-direction-column margin-bottom outline">
+                <strong>{% trans 'Programme of planned activities' %} :</strong>
+                <span>{{ planned_activities }}</span>
+            </div>
+            <div class="flex flex-direction-column margin-bottom outline">
+                <strong>{% trans 'Actions relating to sustainable development and social responsibility' %} :</strong>
+                <span>{{ sustainable_development }}</span>
+            </div>
+        </div>
+
+        <div>
+            <div class="flex flex-direction-column outline">
+                <strong>{% trans 'Documents sent' %} :</strong>
+                {% for document in documents %}
+                    <span>{{ document.document__name }} : {{ document.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
