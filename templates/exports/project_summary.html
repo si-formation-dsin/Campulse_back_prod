@@ -10,13 +10,13 @@
     <body>
         <header>
             <div class="flex flex-space-between">
-                <img src="{% s3static 'img/unistra_logo.png' %}" alt="Université de Strasbourg" class="margin-bottom">
+                <img src="{% s3static 'img/logo_upcite.png' %}" alt="Université Paris Cité" class="margin-bottom">
                 <img src="{% s3static 'img/cvec_logo.png' %}" alt="Contribution Vie Étudiante et de Campus" class="margin-bottom">
                 <img src="{% s3static 'img/crous_logo.png' %}" alt="Crous Strasbourg" class="margin-bottom">
             </div>
             <div class="flex">
                 <div class="flex flex-direction-column outline">
-                    <strong>{% trans 'SPAC date' %} :</strong>
+                    <strong>Date de la CPA :</strong>
                     <span>{{ commission_date | date:'l d F Y' }}</span>
                     <strong>{% trans 'Case number' %} :</strong>
                     <span>{{ manual_identifier }}</span>
@@ -38,14 +38,9 @@
                     {% endfor %}
                 </div>
             </div>
-            <h1 class="text-center text-uppercase">{% trans 'Student project assistance commitee' %}<br>{% trans 'Summary of grant applications' %}</h1>
-            <div class="flex flex-space-around">
-                <div class="outline-light text-center">
-                    <strong>{% trans 'Associative project' %} {% if association %}☑{% else %}☐{% endif %}</strong>
-                </div>
-                <div class="outline-light text-center">
-                    <strong>{% trans 'Individual holder project' %} {% if user and not association %}☑{% else %}☐{% endif %}</strong>
-                </div>
+            <h1 class="text-center text-uppercase">COMMISSION PROJETS ASSOCIATIF<br>{% trans 'Summary of grant applications' %}</h1>
+            <div class="outline-light text-center">
+                <strong>{% trans 'Associative project' %}</strong>
             </div>
         </header>
 
