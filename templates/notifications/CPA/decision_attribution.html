@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <title>{% resolve %}{{ content.title }}{% endresolve %}</title>
             <link rel="stylesheet" href="{% s3static 'fonts/OpenSans/open-sans.css' %}" type="text/css"/>
-            <link rel="stylesheet" href="{% s3static 'css/notifications/CVEC.css' %}" type="text/css"/>
+            <link rel="stylesheet" href="{% s3static 'css/notifications/CPA.css' %}" type="text/css"/>
         <style>
             @page {
                 margin: 20mm 10mm 20mm 10mm;
@@ -19,7 +19,7 @@
             <div class="head-float-left">
                 <img src="{% s3static 'img/logo_upcite.png' %}" alt="svu_logo">
             </div>
-            <div class="head-float-right border text-sm font-a align-right">
+            <div class="head-float-right border text-sm font-d">
                 {% resolve %}{{ content.header|safe }}{% endresolve %}
             </div>
         </header>
@@ -32,7 +32,7 @@
             </div>
         </main>
         <footer>
-            <div class="float-right border font-a align-right">
+            <div class="float-right font-a align-right">
                 {% resolve %}{{ content.footer|safe }}{% endresolve %}
             </div>
         </footer>

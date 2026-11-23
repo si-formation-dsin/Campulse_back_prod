@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <title>{% resolve %}{{ content.title }}{% endresolve %}</title>
             <link rel="stylesheet" href="{% s3static 'fonts/OpenSans/open-sans.css' %}" type="text/css"/>
-            <link rel="stylesheet" href="{% s3static 'css/notifications/CVEC.css' %}" type="text/css"/>
+            <link rel="stylesheet" href="{% s3static 'css/notifications/CPA.css' %}" type="text/css"/>
         <style>
             @page {
                 margin: 20mm 10mm 20mm 10mm;
@@ -17,7 +17,7 @@
     <body>
         <header>
             <div class="head-float-left">
-                <img src="{% s3static 'img/logo_upcite.png' %}" alt="upcite_logo">
+                <img src="{% s3static 'img/logo_upcite.png' %}" alt="svu_logo">
             </div>
             <div class="head-float-right border text-sm font-a align-right">
                 {% resolve %}{{ content.header|safe }}{% endresolve %}
