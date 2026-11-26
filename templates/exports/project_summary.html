@@ -37,7 +37,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <h1 class="text-center text-uppercase">COMMISSION PROJETS ASSOCIATIF<br>{% trans 'Summary of grant applications' %}</h1>
+            <h1 class="text-center text-uppercase">COMMISSION PROJET ASSOCIATIF<br>{% trans 'Summary of grant applications' %}</h1>
             <div class="outline-light text-center">
                 <strong>{% trans 'Associative project' %}</strong>
             </div>
@@ -168,68 +168,72 @@
             </div>
         </section>
 
-        <section>
-            <div class="outline">
-                <h2>{% trans 'Target audience for the project' %}</h2>
-                <div class="outline-light">
-                    <strong>{% trans 'Targeted audience type' %} :</strong>
-                    <span>{{ target_audience }}</span>
-                </div>
-                <div class="flex">
-                    <div class="outline-light">
-                        <strong>{% trans 'Number of people targeted' %} :</strong>
-                        <span>{{ amount_all_audience }}</span>
-                    </div>
-                    <div class="outline-light">
-                        <strong>{% trans 'Including students' %} :</strong>
-                        <span>{{ amount_students_audience }}</span>
-                    </div>
-                </div>
-                <div class="flex">
-                    <div class="outline-light">
-                        <div>
-                            <strong>{% trans 'Participation per person' %} :</strong>
-                            <span>{{ ticket_price }} €</span>
-                        </div>
-                        <div>
-                            <strong>{% trans 'Special student rate' %} :</strong>
-                            <span>{{ student_ticket_price }} €</span>
-                        </div>
-                    </div>
-                    <div class="outline-light">
-                        <strong>{% trans 'Cost per person' %} :</strong>
-                        <span>{{ individual_cost }} €</span>
-                    </div>
-                </div>
+        
+<section>
+    <div class="outline">
+        <h2>Organisateurs, public visé et budget du projet</h2>
+        <div class="outline-light">
+            <strong>Organisateurs du projet et universités d'appartenance :</strong>
+            <span>{{ target_audience }}</span>
+        </div>
+        <div class="flex">
+            <div class="outline-light">
+                <strong>Montant total des dépenses :</strong>
+                <span>{{ amount_all_audience }} €</span>
             </div>
-        </section>
-
-        <div class="break">
-            <div class="flex flex-direction-column margin-bottom outline">
-                <strong>{% trans 'Aims of the project' %} :</strong>
-                <span>{{ goals }}</span>
-            </div>
-            <div class="flex flex-direction-column margin-bottom outline">
-                <strong>{% trans 'Summary of the project' %} :</strong>
-                <span>{{ summary }}</span>
-            </div>
-            <div class="flex flex-direction-column margin-bottom outline">
-                <strong>{% trans 'Prevention and safety programme' %} :</strong>
-                <span>{{ prevention_safety }}</span>
-            </div>
-            <div class="flex flex-direction-column margin-bottom outline">
-                <strong>{% trans 'Marketing campaign' %} :</strong>
-                <span>{{ marketing_campaign }}</span>
-            </div>
-            <div class="flex flex-direction-column margin-bottom outline">
-                <strong>{% trans 'Programme of planned activities' %} :</strong>
-                <span>{{ planned_activities }}</span>
-            </div>
-            <div class="flex flex-direction-column margin-bottom outline">
-                <strong>{% trans 'Actions relating to sustainable development and social responsibility' %} :</strong>
-                <span>{{ sustainable_development }}</span>
+            <div class="outline-light">
+                <strong>Nombre d'étudiantes et étudiants de l'université visés :</strong>
+                <span>{{ amount_students_audience }}</span>
             </div>
         </div>
+        <div class="flex">
+            <div class="outline-light">
+                <div>
+                    <strong>Dépenses de prévention et de sécurité :</strong>
+                    <span>{{ ticket_price }} €</span>
+                </div>
+                <div>
+                    <strong>Montant total des recettes :</strong>
+                    <span>{{ student_ticket_price }} €</span>
+                </div>
+            </div>
+            <div class="outline-light">
+                <strong>Financements sollicités auprès d'autres financeurs :</strong>
+                <span>{{ individual_cost }} €</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        
+<div class="break">
+    <div class="flex flex-direction-column margin-bottom outline">
+        <strong>Publics, tarifs, objectifs et retombées sur la vie étudiante et de campus :</strong>
+        <span>{{ goals }}</span>
+    </div>
+    <div class="flex flex-direction-column margin-bottom outline">
+        <strong>Description détaillée du projet :</strong>
+        <span>{{ summary }}</span>
+    </div>
+    <div class="flex flex-direction-column margin-bottom outline">
+        <strong>Prévention, sécurité, accessibilité et développement durable :</strong>
+        <span>{{ prevention_safety }}</span>
+    </div>
+    <div class="flex flex-direction-column margin-bottom outline">
+        <strong>Lien avec la formation (formation, UE concernée et évaluation) :</strong>
+        <span>{{ marketing_campaign }}</span>
+    </div>
+    <div class="flex flex-direction-column margin-bottom outline">
+        <strong>Planning de réalisation et lieux associés :</strong>
+        <span>{{ planned_activities }}</span>
+    </div>
+    <div class="flex flex-direction-column margin-bottom outline">
+        <strong>Partenaires, intervenants ou personnalités associés au projet :</strong>
+        <span>{{ sustainable_development }}</span>
+    </div>
+</div>
+
 
         <div>
             <div class="flex flex-direction-column outline">
